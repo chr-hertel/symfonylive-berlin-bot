@@ -39,8 +39,8 @@ final class Parser
                 return;
             }
 
-            $start = new \DateTimeImmutable($startsAt);
-            $end = new \DateTimeImmutable($endsAt);
+            $start = (new \DateTimeImmutable($startsAt))->setTimezone(new \DateTimeZone('Europe/Berlin'));
+            $end = (new \DateTimeImmutable($endsAt))->setTimezone(new \DateTimeZone('Europe/Berlin'));
 
             try {
                 $timeSpan = new TimeSpan($start, $end);

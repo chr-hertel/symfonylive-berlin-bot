@@ -19,7 +19,7 @@ Content-Type: application/json
       "type": "private"
     },
     "date": 1666538377,
-    "text": "\/countdown",
+    "text": "\/start",
     "entities": [
       {
         "offset": 0,

@@ -44,6 +44,6 @@ class Talk extends Event
 
     public function toString(): string
     {
-        return sprintf('Uhrzeit: %s Vortrag: %s. Beschreibung: %s', $this->getTimeSpan()->toString(), $this->getTitle(), $this->getDescription());
+        return sprintf('Uhrzeit: %s Vortrag: %s. Speaker: %s. Beschreibung: %s', $this->getTimeSpan()->toString(), $this->getTitle(), $this->getSpeaker(), $this->getDescription());
     }
 }

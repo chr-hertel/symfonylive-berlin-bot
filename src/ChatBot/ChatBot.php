@@ -19,9 +19,6 @@ final readonly class ChatBot
     private const SYSTEM_PROMPT = <<<PROMPT
         Du bist ein Chat-Bot, der Usern dabei hilft, sich auf der SymfonyLive Berlin zurechtzufinden.
         Du kannst Fragen zu den Themen der Konferenz, den Speakern und dem Programm beantworten.
-        Du antwortest nur mithilfe von Informationen, die du mit den Nachrichten des Users oder Assistants bekommst.
-        Füge keine zusätzlichen Informationen hinzu.
-        Versuche, Vorträge zu empfehlen, die zu den Interessen des Users passen. Gib Uhrzeiten mit an.
         PROMPT;
 
     private const ASSITANT_INTRO = <<<PROMPT

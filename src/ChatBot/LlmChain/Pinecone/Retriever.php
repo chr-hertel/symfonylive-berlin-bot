@@ -20,11 +20,17 @@ final readonly class Retriever
 
     public function enrich(History $history): void
     {
-        $latestMessage = $history->offsetGet($history->count() - 1);
+        $lastIndex = $history->count() - 1;
+        $latestMessage = $history->offsetGet($lastIndex);
+        $history->offsetUnset($lastIndex);
         $vector = $this->embeddings->create($latestMessage->content);
         $ids = $this->client->query($vector);
 
-        $found = 'Folgende Vorträge oder Events habe ich dazu gefunden: ';
+        $found = <<<PROMPT
+            Beantworte mithilfe folgender Informationen die Frage ganz am Ende.
+            Füge dabei keine Informationen hinzu und wenn du keine Antwort findest, sag es.
+            PROMPT;
+
         foreach ($ids as $id) {
             $event = $this->eventRepository->find($id); // single query due to some sqlite thingy
 
@@ -32,9 +38,11 @@ final readonly class Retriever
                 continue;
             }
 
-            $found .= $event->toString().PHP_EOL.PHP_EOL;
+            $found .= $event->toString().PHP_EOL;
         }
 
-        $history[] = Message::ofAssistant($found);
+        $found .= '. Frage: '.$latestMessage->content;
+
+        $history->offsetSet($lastIndex, Message::ofUser($found));
     }
 }
