@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\ChatBot\LlmChain\OpenAI;
 
-use App\ChatBot\LlmChain\Message\History;
+use App\ChatBot\LlmChain\Message\MessageBag;
 
 final readonly class ChatModel
 {
@@ -15,11 +15,11 @@ final readonly class ChatModel
     ) {
     }
 
-    public function call(History $history): array
+    public function call(MessageBag $messages): array
     {
         $body = [
             'model' => $this->model,
-            'messages' => $history,
+            'messages' => $messages,
             'temperature' => $this->temperature,
         ];
 

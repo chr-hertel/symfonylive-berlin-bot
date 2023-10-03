@@ -5,35 +5,42 @@ declare(strict_types=1);
 namespace App\ChatBot\LlmChain\Pinecone;
 
 use Probots\Pinecone\Client as Pinecone;
+use Probots\Pinecone\Resources\VectorResource;
 
 final readonly class Client
 {
-    private const INDEX = 'symfonylive-berlin-bot';
-
-    public function __construct(private Pinecone $pinecone)
-    {
+    public function __construct(
+        private Pinecone $pinecone,
+        private string $index,
+    ) {
     }
 
+    /**
+     * @param list<float> $vector
+     * @return list<string|int>
+     */
     public function query(array $vector): array
     {
-        $response = $this->pinecone->index(self::INDEX)
-            ->vectors()
-            ->query($vector);
+        $response = $this->getVectors()->query($vector);
 
         return array_map(fn (array $match) => $match['id'], $response->json()['matches']);
     }
 
+    /**
+     * @param list<array{id: string|int, values: list<float>}> $vectors
+     */
     public function upsert(array $vectors): void
     {
-        $this->pinecone->index(self::INDEX)
-            ->vectors()
-            ->upsert($vectors);
+        $this->getVectors()->upsert($vectors);
     }
 
     public function truncate(): void
     {
-        $this->pinecone->index(self::INDEX)
-            ->vectors()
-            ->delete(deleteAll: true);
+        $this->getVectors()->delete(deleteAll: true);
+    }
+
+    private function getVectors(): VectorResource
+    {
+        return $this->pinecone->index($this->index)->vectors();
     }
 }

@@ -4,11 +4,19 @@ declare(strict_types=1);
 
 namespace App\ChatBot\LlmChain\Message;
 
-final class History extends \ArrayObject implements \JsonSerializable
+final class MessageBag extends \ArrayObject implements \JsonSerializable
 {
     public function __construct(Message ...$messages)
     {
         parent::__construct($messages);
+    }
+
+    public function with(Message $message): self
+    {
+        $messages = clone $this;
+        $messages->append($message);
+
+        return $messages;
     }
 
     /**

@@ -47,8 +47,18 @@ final class Update
         throw new \RuntimeException('Unable to extract message.');
     }
 
+    public function getMessageText(): string
+    {
+        return $this->getMessage()->text;
+    }
+
     public function getChatId(): int
     {
         return $this->getMessage()->chat->id;
+    }
+
+    public function getSender(): User
+    {
+        return $this->getMessage()->from;
     }
 }

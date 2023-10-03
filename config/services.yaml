@@ -26,6 +26,12 @@ services:
     App\ChatBot\LlmChain\OpenAI\Client:
         $apiKey: '%env(OPENAI_TOKEN)%'
 
+    App\ChatBot\LlmChain\Pinecone\Client:
+        $index: 'symfonylive-berlin-bot'
+
+    App\ChatBot\LlmChain\RetrievalChain:
+        $chain: '@App\ChatBot\LlmChain\ChatChain'
+
     App\ChatBot\Telegram\Client:
         $baseUrl: '%env(WEBHOOK_BASE_URL)%'
         $token: '%env(TELEGRAM_TOKEN)%'
