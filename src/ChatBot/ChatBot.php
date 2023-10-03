@@ -28,8 +28,8 @@ final readonly class ChatBot
         PROMPT;
 
     public function __construct(
-        private MessageStore     $store,
-        private RetrievalChain   $chain,
+        private MessageStore $store,
+        private RetrievalChain $chain,
         private ChatterInterface $chatter,
     ) {
     }

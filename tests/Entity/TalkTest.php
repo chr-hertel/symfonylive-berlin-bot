@@ -7,7 +7,6 @@ namespace App\Tests\Entity;
 use App\Entity\Slot;
 use App\Entity\Talk;
 use App\Entity\TimeSpan;
-use App\Entity\Track;
 use PHPUnit\Framework\TestCase;
 
 final class TalkTest extends TestCase
@@ -19,7 +18,7 @@ final class TalkTest extends TestCase
         $start = new \DateTimeImmutable('12.12.2012 12:12');
         $timeSpan = new TimeSpan($start, $start->modify('+45 minutes'));
         $slot = new Slot($timeSpan);
-        $this->talk = new Talk('Working with events', 'John Doe', 'This is a dummy', $timeSpan, Track::SymfonyRoom, $slot);
+        $this->talk = new Talk('Working with events', 'John Doe', 'This is a dummy', $timeSpan, $slot);
     }
 
     public function testConstruct(): void
@@ -33,7 +32,6 @@ final class TalkTest extends TestCase
         self::assertSame('John Doe', $this->talk->getSpeaker());
         self::assertSame('This is a dummy', $this->talk->getDescription());
         self::assertEquals($timeSpan, $this->talk->getTimeSpan());
-        self::assertSame('The Symfony room', $this->talk->getTrack());
     }
 
     public function testIsOver(): void

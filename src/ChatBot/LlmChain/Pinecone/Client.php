@@ -17,6 +17,7 @@ final readonly class Client
 
     /**
      * @param list<float> $vector
+     *
      * @return list<string|int>
      */
     public function query(array $vector): array

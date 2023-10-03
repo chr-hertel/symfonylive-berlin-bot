@@ -14,6 +14,11 @@ final readonly class Client
     ) {
     }
 
+    /**
+     * @param array<string, mixed> $body
+     *
+     * @return array<string, mixed>
+     */
     public function request(string $endpoint, array $body): array
     {
         $url = sprintf('https://api.openai.com/v1/%s', $endpoint);

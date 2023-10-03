@@ -56,6 +56,6 @@ final class TimeSpanTest extends TestCase
         $end = new \DateTimeImmutable('2020-11-21 09:55', new \DateTimeZone('Europe/Paris'));
         $timeSpan = new TimeSpan($start, $end);
 
-        self::assertSame('Nov 21: 09:10 - 09:55', $timeSpan->toString());
+        self::assertSame('Nov 21 2020: 09:10 - 09:55', $timeSpan->toString());
     }
 }

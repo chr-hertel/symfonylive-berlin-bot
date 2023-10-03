@@ -7,8 +7,3 @@ parameters:
     paths:
         - src/
         - tests/
-    ignoreErrors:
-        -
-            message: '#Property App\\Entity\\[a-zA-Z]+::\$id is unused.#'
-            paths:
-                - 'src/Entity/*'

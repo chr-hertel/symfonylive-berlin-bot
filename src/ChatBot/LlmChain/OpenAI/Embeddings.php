@@ -12,6 +12,9 @@ final readonly class Embeddings
     ) {
     }
 
+    /**
+     * @return list<float>
+     */
     public function create(string $text): array
     {
         $body = [

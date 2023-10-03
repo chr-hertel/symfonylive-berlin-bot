@@ -15,6 +15,9 @@ final readonly class ChatModel
     ) {
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function call(MessageBag $messages): array
     {
         $body = [
