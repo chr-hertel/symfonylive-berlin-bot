@@ -6,9 +6,14 @@ namespace App\ChatBot\LlmChain\Message;
 
 final readonly class Message
 {
+    /**
+     * @param array{name: string, arguments: string} $functionCall
+     */
     public function __construct(
-        public string $content,
+        public ?string $content,
         public Role $role,
+        public ?array $functionCall = null,
+        public ?string $name = null,
     ) {
     }
 
@@ -17,13 +22,21 @@ final readonly class Message
         return new self($content, Role::System);
     }
 
-    public static function ofAssistant(string $content): self
+    /**
+     * @param array{name: string, arguments: string} $functionCall
+     */
+    public static function ofAssistant(string $content = null, array $functionCall = null): self
     {
-        return new self($content, Role::Assistant);
+        return new self($content, Role::Assistant, $functionCall);
     }
 
     public static function ofUser(string $content): self
     {
         return new self($content, Role::User);
+    }
+
+    public static function ofFunctionCall(string $name, string $content): self
+    {
+        return new self($content, Role::FunctionCall, null, $name);
     }
 }

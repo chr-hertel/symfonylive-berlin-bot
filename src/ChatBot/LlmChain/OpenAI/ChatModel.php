@@ -16,9 +16,11 @@ final readonly class ChatModel
     }
 
     /**
+     * @param array<string, mixed> $options
+     *
      * @return array<string, mixed>
      */
-    public function call(MessageBag $messages): array
+    public function call(MessageBag $messages, array $options = []): array
     {
         $body = [
             'model' => $this->model,
@@ -26,6 +28,6 @@ final readonly class ChatModel
             'temperature' => $this->temperature,
         ];
 
-        return $this->client->request('chat/completions', $body);
+        return $this->client->request('chat/completions', array_merge($body, $options));
     }
 }
