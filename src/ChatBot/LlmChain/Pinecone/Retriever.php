@@ -20,7 +20,7 @@ final readonly class Retriever implements RetrieverInterface
 
     public function enrich(Message $message): Message
     {
-        $vector = $this->embeddings->create($message->content);
+        $vector = $this->embeddings->create($message->content ?? '');
         $ids = $this->client->query($vector);
 
         $prompt = <<<PROMPT

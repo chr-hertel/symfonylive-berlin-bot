@@ -23,12 +23,32 @@ final class MessageBag extends \ArrayObject implements \JsonSerializable
     }
 
     /**
-     * @return array<array{role: 'system'|'assistant'|'user', content: string}>
+     * @return array<int, array{
+     *     role: 'system'|'assistant'|'user'|'function',
+     *     content: ?string,
+     *     function_call?: array{name: string, arguments: string},
+     *     name?: string
+     * }>
      */
     public function jsonSerialize(): array
     {
         return array_map(
-            fn (Message $message) => ['role' => $message->role->value, 'content' => $message->content],
+            function (Message $message) {
+                $array = [
+                    'role' => $message->role->value,
+                    'content' => $message->content,
+                ];
+
+                if (null !== $message->functionCall) {
+                    $array['function_call'] = $message->functionCall;
+                }
+
+                if (null !== $message->name) {
+                    $array['name'] = $message->name;
+                }
+
+                return $array;
+            },
             $this->getArrayCopy(),
         );
     }
